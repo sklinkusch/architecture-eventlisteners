@@ -8,7 +8,7 @@ const addNoteButton = $("#add-note-button");
 
 addNoteButton.addEventListener("click", e => {
   const note = addNoteInput.value;
-  console.log(note);
+  localStorage.setItem("myAwesomeNote", note);
 });
 
 console.log(addNoteInput);
