@@ -86,6 +86,26 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/assets/js/Storage.js":
+/*!**********************************!*\
+  !*** ./src/assets/js/Storage.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Storage; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Storage = function Storage() {
+  _classCallCheck(this, Storage);
+};
+
+
+
+/***/ }),
+
 /***/ "./src/assets/js/index.js":
 /*!********************************!*\
   !*** ./src/assets/js/index.js ***!
@@ -97,6 +117,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @scss/styles.scss */ "./src/assets/scss/styles.scss");
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Storage */ "./src/assets/js/Storage.js");
+
  // Helper
 
 var $ = function $(selector) {
@@ -118,7 +140,9 @@ var renderNotes = function renderNotes(note) {
   noteContainer.innerHTML = templateOfNote;
 };
 
-renderNotes(localStorage.getItem(noteStorageKey));
+renderNotes(localStorage.getItem(noteStorageKey)); // LocalStorage Wrapper
+// save Array => transform: String -> localStorage.setItem
+// get array => localStorage.getItem -> transform: Array
 
 /***/ }),
 

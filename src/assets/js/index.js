@@ -1,4 +1,5 @@
 import "@scss/styles.scss";
+import Storage from "./Storage";
 
 // Helper
 const $ = selector => document.querySelector(selector);
@@ -23,3 +24,7 @@ const renderNotes = note => {
 };
 
 renderNotes(localStorage.getItem(noteStorageKey));
+
+// LocalStorage Wrapper
+// save Array => transform: String -> localStorage.setItem
+// get array => localStorage.getItem -> transform: Array
