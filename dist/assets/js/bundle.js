@@ -112,7 +112,7 @@ function () {
     _classCallCheck(this, Storage);
 
     this.key = localStorageKey;
-    this.data = this.get() || [];
+    this.data = this.get();
   }
 
   _createClass(Storage, [{
@@ -134,7 +134,8 @@ function () {
   }, {
     key: "get",
     value: function get() {
-      return localStorage.getItem(this.key);
+      var localStorageValue = localStorage.getItem(this.key);
+      return this.data = JSON.parse(localStorageValue) || [];
     }
   }]);
 
@@ -179,7 +180,7 @@ var renderNotes = function renderNotes(note) {
   noteContainer.innerHTML = templateOfNote;
 };
 
-renderNotes(noteStorage.get());
+renderNotes(noteStorage.data);
 
 /***/ }),
 

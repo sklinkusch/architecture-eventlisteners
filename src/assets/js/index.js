@@ -23,4 +23,4 @@ const renderNotes = note => {
   noteContainer.innerHTML = templateOfNote;
 };
 
-renderNotes(noteStorage.get());
+renderNotes(noteStorage.data);
