@@ -24,7 +24,3 @@ const renderNotes = note => {
 };
 
 renderNotes(localStorage.getItem(noteStorageKey));
-
-// LocalStorage Wrapper
-// save Array => transform: String -> localStorage.setItem
-// get array => localStorage.getItem -> transform: Array
