@@ -12,7 +12,7 @@ const noteContainer = $("#notes");
 
 addNoteButton.addEventListener("click", e => {
   const note = addNoteInput.value;
-  noteStorage.save(note);
+  noteStorage.addDataSet(note);
   renderNotes(note);
 });
 
