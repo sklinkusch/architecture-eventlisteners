@@ -102,7 +102,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-//events - a super basic javascript pubsub pattern
+//events - a super-basic Javascript (publish subscribe) pattern
 var Event =
 /*#__PURE__*/
 function () {
@@ -160,6 +160,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Storage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noteStorage", function() { return noteStorage; });
 /* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Events */ "./src/assets/js/Events.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper */ "./src/assets/js/helper.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -179,14 +180,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 // LocalStorage Wrapper
-// save Array => transform: String -> localStorage.setItem
-// get array => localStorage.getItem -> transform: Array
+// save Array -> transform: String -> localStorage.setItem
+// get Array -> localStorage.getItem -> transform: Array
+
 
 
 var Storage =
 /*#__PURE__*/
-function (_Event) {
-  _inherits(Storage, _Event);
+function (_MyNiceEvents) {
+  _inherits(Storage, _MyNiceEvents);
 
   function Storage(localStorageKey) {
     var _this;
@@ -201,25 +203,25 @@ function (_Event) {
 
   _createClass(Storage, [{
     key: "addDataSet",
-    value: function addDataSet(data) {
-      this.data.push(data);
+    value: function addDataSet(dataParameter) {
+      this.data.push(dataParameter);
       this.emit("updated", this.data);
       this.save();
     }
   }, {
     key: "save",
     value: function save() {
-      // should have access to current data
+      // have access to current data
       var data = this.data; // transform to string
 
-      var stringified = JSON.stringify(data); // save to localStorage
+      var stringified = JSON.stringify(data); // save to locaStorage
 
-      localStorage.setItem(this.key, stringified);
+      window.localStorage.setItem(this.key, stringified);
     }
   }, {
     key: "get",
     value: function get() {
-      var localStorageValue = localStorage.getItem(this.key);
+      var localStorageValue = window.localStorage.getItem(this.key);
       this.data = JSON.parse(localStorageValue) || [];
       this.emit("updated", this.data);
       return this.data;
@@ -236,13 +238,42 @@ function (_Event) {
 
 
 var noteStorage = new Storage("myAwesomeNote");
-noteStorage.on("addItem", function (notes) {
-  noteStorage.addDataSet(notes);
+noteStorage.on("addItem", function (note) {
+  noteStorage.addDataSet(note);
 });
 noteStorage.on("updated", function (notes) {
-  renderNotes(notes);
+  Object(_helper__WEBPACK_IMPORTED_MODULE_1__["renderNotes"])(notes);
 });
 noteStorage.initFinished();
+
+/***/ }),
+
+/***/ "./src/assets/js/helper.js":
+/*!*********************************!*\
+  !*** ./src/assets/js/helper.js ***!
+  \*********************************/
+/*! exports provided: $, domElements, renderNotes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$", function() { return $; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "domElements", function() { return domElements; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderNotes", function() { return renderNotes; });
+// Helper
+var $ = function $(selector) {
+  return document.querySelector(selector);
+};
+var domElements = {
+  addNoteInput: $("#add-note"),
+  addNoteButton: $("#add-note-button"),
+  noteContainer: $("#notes")
+};
+var renderNotes = function renderNotes(notes) {
+  domElements.noteContainer.innerHTML = notes.map(function (note) {
+    return "\n        <div class=\"note col-lg-4\">\n          ".concat(note, "\n        </div>\n      ");
+  }).join("");
+};
 
 /***/ }),
 
@@ -258,26 +289,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @scss/styles.scss */ "./src/assets/scss/styles.scss");
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Storage */ "./src/assets/js/Storage.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper */ "./src/assets/js/helper.js");
 
- // Helper
 
-var $ = function $(selector) {
-  return document.querySelector(selector);
-};
 
-var addNoteInput = $("#add-note");
-var addNoteButton = $("#add-note-button");
-var noteContainer = $("#notes");
-addNoteButton.addEventListener("click", function (e) {
+var addNoteButton = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].addNoteButton,
+    addNoteInput = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].addNoteInput;
+addNoteButton.addEventListener("click", function () {
   var note = addNoteInput.value;
-  noteStorage.emit("addItem", note);
-});
 
-var renderNotes = function renderNotes(notes) {
-  noteContainer.innerHTML = notes.map(function (note) {
-    return "\n    <div class=\"note col-lg-4\">".concat(note, "</div>\n  ");
-  }).join("");
-};
+  if (note) {
+    _Storage__WEBPACK_IMPORTED_MODULE_1__["noteStorage"].emit("addItem", note);
+    addNoteInput.value = "";
+  }
+});
 
 /***/ }),
 

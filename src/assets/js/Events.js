@@ -1,13 +1,15 @@
-//events - a super basic javascript pubsub pattern
+//events - a super-basic Javascript (publish subscribe) pattern
 
 export default class Event {
   constructor() {
     this.events = {};
   }
+
   on(eventName, fn) {
     this.events[eventName] = this.events[eventName] || [];
     this.events[eventName].push(fn);
   }
+
   off(eventName, fn) {
     if (this.events[eventName]) {
       for (var i = 0; i < this.events[eventName].length; i++) {
