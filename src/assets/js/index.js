@@ -3,6 +3,13 @@ import Storage from "./Storage";
 
 const noteStorage = new Storage("myAwesomeNote");
 
+noteStorage.on("addItem", notes => {
+  noteStorage.addDataSet(note);
+});
+noteStorage.on("updated", notes => {
+  renderNotes(notes);
+});
+
 // Helper
 const $ = selector => document.querySelector(selector);
 

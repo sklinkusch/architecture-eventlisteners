@@ -2,8 +2,10 @@
 // save Array => transform: String -> localStorage.setItem
 // get array => localStorage.getItem -> transform: Array
 
-export default class Storage {
+import Event from "./Events";
+export default class Storage extends Event {
   constructor(localStorageKey) {
+    super();
     this.key = localStorageKey;
     this.data = this.get();
   }
