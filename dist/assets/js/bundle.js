@@ -146,19 +146,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Storage */ "./src/assets/js/Storage.js");
 
- // Helper
+
+var noteStorage = new _Storage__WEBPACK_IMPORTED_MODULE_1__["default"]("myAwesomeNote"); // Helper
 
 var $ = function $(selector) {
   return document.querySelector(selector);
 };
 
-var noteStorageKey = "myAwesomeNote";
 var addNoteInput = $("#add-note");
 var addNoteButton = $("#add-note-button");
 var noteContainer = $("#notes");
 addNoteButton.addEventListener("click", function (e) {
   var note = addNoteInput.value;
-  localStorage.setItem(noteStorageKey, note);
+  noteStorage.save(note);
   renderNotes(note);
 });
 
@@ -167,7 +167,7 @@ var renderNotes = function renderNotes(note) {
   noteContainer.innerHTML = templateOfNote;
 };
 
-renderNotes(localStorage.getItem(noteStorageKey));
+renderNotes(noteStorage.get());
 
 /***/ }),
 
