@@ -172,12 +172,13 @@ var noteContainer = $("#notes");
 addNoteButton.addEventListener("click", function (e) {
   var note = addNoteInput.value;
   noteStorage.addDataSet(note);
-  renderNotes(note);
+  renderNotes(noteStorage.data);
 });
 
-var renderNotes = function renderNotes(note) {
-  var templateOfNote = "\n    <div class=\"note col-lg-4\">".concat(note, "</div>\n  ");
-  noteContainer.innerHTML = templateOfNote;
+var renderNotes = function renderNotes(notes) {
+  noteContainer.innerHTML = notes.map(function (note) {
+    return "\n    <div class=\"note col-lg-4\">".concat(note, "</div>\n  ");
+  }).join("");
 };
 
 renderNotes(noteStorage.data);

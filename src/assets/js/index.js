@@ -13,14 +13,17 @@ const noteContainer = $("#notes");
 addNoteButton.addEventListener("click", e => {
   const note = addNoteInput.value;
   noteStorage.addDataSet(note);
-  renderNotes(note);
+  renderNotes(noteStorage.data);
 });
 
-const renderNotes = note => {
-  const templateOfNote = `
+const renderNotes = notes => {
+  noteContainer.innerHTML = notes
+    .map(note => {
+      return `
     <div class="note col-lg-4">${note}</div>
   `;
-  noteContainer.innerHTML = templateOfNote;
+    })
+    .join("");
 };
 
 renderNotes(noteStorage.data);
