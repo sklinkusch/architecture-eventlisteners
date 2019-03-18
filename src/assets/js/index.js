@@ -10,6 +10,7 @@ const noteContainer = $("#notes");
 addNoteButton.addEventListener("click", e => {
   const note = addNoteInput.value;
   localStorage.setItem("myAwesomeNote", note);
+  renderNotes(note);
 });
 
 const renderNotes = note => {
@@ -18,4 +19,3 @@ const renderNotes = note => {
   `;
   noteContainer.innerHTML = templateOfNote;
 };
-renderNotes("This is a test.");
