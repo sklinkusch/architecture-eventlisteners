@@ -152,12 +152,13 @@ function () {
 /*!**********************************!*\
   !*** ./src/assets/js/Storage.js ***!
   \**********************************/
-/*! exports provided: default */
+/*! exports provided: default, noteStorage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Storage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noteStorage", function() { return noteStorage; });
 /* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Events */ "./src/assets/js/Events.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -202,6 +203,7 @@ function (_Event) {
     key: "addDataSet",
     value: function addDataSet(data) {
       this.data.push(data);
+      this.emit("updated", this.data);
       this.save();
     }
   }, {
@@ -218,7 +220,14 @@ function (_Event) {
     key: "get",
     value: function get() {
       var localStorageValue = localStorage.getItem(this.key);
-      return this.data = JSON.parse(localStorageValue) || [];
+      this.data = JSON.parse(localStorageValue) || [];
+      this.emit("updated", this.data);
+      return this.data;
+    }
+  }, {
+    key: "initFinished",
+    value: function initFinished() {
+      this.emit("updated", this.data);
     }
   }]);
 
@@ -226,6 +235,14 @@ function (_Event) {
 }(_Events__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
+var noteStorage = new Storage("myAwesomeNote");
+noteStorage.on("addItem", function (notes) {
+  noteStorage.addDataSet(notes);
+});
+noteStorage.on("updated", function (notes) {
+  renderNotes(notes);
+});
+noteStorage.initFinished();
 
 /***/ }),
 
@@ -242,14 +259,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Storage */ "./src/assets/js/Storage.js");
 
-
-var noteStorage = new _Storage__WEBPACK_IMPORTED_MODULE_1__["default"]("myAwesomeNote");
-noteStorage.on("addItem", function (notes) {
-  noteStorage.addDataSet(note);
-});
-noteStorage.on("updated", function (notes) {
-  renderNotes(notes);
-}); // Helper
+ // Helper
 
 var $ = function $(selector) {
   return document.querySelector(selector);
@@ -260,8 +270,7 @@ var addNoteButton = $("#add-note-button");
 var noteContainer = $("#notes");
 addNoteButton.addEventListener("click", function (e) {
   var note = addNoteInput.value;
-  noteStorage.addDataSet(note);
-  renderNotes(noteStorage.data);
+  noteStorage.emit("addItem", note);
 });
 
 var renderNotes = function renderNotes(notes) {
@@ -269,8 +278,6 @@ var renderNotes = function renderNotes(notes) {
     return "\n    <div class=\"note col-lg-4\">".concat(note, "</div>\n  ");
   }).join("");
 };
-
-renderNotes(noteStorage.data);
 
 /***/ }),
 

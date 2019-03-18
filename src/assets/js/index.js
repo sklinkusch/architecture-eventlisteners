@@ -1,15 +1,6 @@
 import "@scss/styles.scss";
 import Storage from "./Storage";
 
-const noteStorage = new Storage("myAwesomeNote");
-
-noteStorage.on("addItem", notes => {
-  noteStorage.addDataSet(note);
-});
-noteStorage.on("updated", notes => {
-  renderNotes(notes);
-});
-
 // Helper
 const $ = selector => document.querySelector(selector);
 
@@ -19,8 +10,7 @@ const noteContainer = $("#notes");
 
 addNoteButton.addEventListener("click", e => {
   const note = addNoteInput.value;
-  noteStorage.addDataSet(note);
-  renderNotes(noteStorage.data);
+  noteStorage.emit("addItem", note);
 });
 
 const renderNotes = notes => {
@@ -32,5 +22,3 @@ const renderNotes = notes => {
     })
     .join("");
 };
-
-renderNotes(noteStorage.data);
