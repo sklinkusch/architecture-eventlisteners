@@ -109,8 +109,6 @@ addNoteButton.addEventListener("click", function (e) {
   var note = addNoteInput.value;
   localStorage.setItem("myAwesomeNote", note);
 });
-console.log(addNoteInput);
-console.log(addNoteButton);
 
 /***/ }),
 

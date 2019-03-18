@@ -10,6 +10,3 @@ addNoteButton.addEventListener("click", e => {
   const note = addNoteInput.value;
   localStorage.setItem("myAwesomeNote", note);
 });
-
-console.log(addNoteInput);
-console.log(addNoteButton);
