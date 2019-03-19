@@ -161,6 +161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noteStorage", function() { return noteStorage; });
 /* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Events */ "./src/assets/js/Events.js");
 /* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper */ "./src/assets/js/helper.js");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index */ "./src/assets/js/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -182,6 +183,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 // LocalStorage Wrapper
 // save Array -> transform: String -> localStorage.setItem
 // get Array -> localStorage.getItem -> transform: Array
+
 
 
 
@@ -209,12 +211,26 @@ function (_MyNiceEvents) {
       this.save();
     }
   }, {
+    key: "removeDataSet",
+    value: function removeDataSet(dataParameter) {
+      // remove from this.data
+      var data = this.data;
+      this.data = data.filter(function (note, index) {
+        return index != dataParameter;
+      }); // console.log(`OK remove key -> ${dataParameter}`);
+      // update ui
+
+      this.emit("updated", this.data); // save
+
+      this.save();
+    }
+  }, {
     key: "save",
     value: function save() {
       // have access to current data
       var data = this.data; // transform to string
 
-      var stringified = JSON.stringify(data); // save to locaStorage
+      var stringified = JSON.stringify(data); // save to localStorage
 
       window.localStorage.setItem(this.key, stringified);
     }
@@ -244,6 +260,9 @@ noteStorage.on("addItem", function (note) {
 noteStorage.on("updated", function (notes) {
   Object(_helper__WEBPACK_IMPORTED_MODULE_1__["renderNotes"])(notes);
 });
+noteStorage.on("removeItem", function (note) {
+  noteStorage.removeDataSet(note);
+});
 noteStorage.initFinished();
 
 /***/ }),
@@ -260,7 +279,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$", function() { return $; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "domElements", function() { return domElements; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderNotes", function() { return renderNotes; });
-// Helper
+/* harmony import */ var _Storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Storage */ "./src/assets/js/Storage.js");
+ // Helper
+
 var $ = function $(selector) {
   return document.querySelector(selector);
 };
@@ -270,9 +291,23 @@ var domElements = {
   noteContainer: $("#notes")
 };
 var renderNotes = function renderNotes(notes) {
-  domElements.noteContainer.innerHTML = notes.map(function (note) {
-    return "\n        <div class=\"note col-lg-4\">\n          ".concat(note, "\n        </div>\n      ");
+  domElements.noteContainer.innerHTML = notes.map(function (note, index) {
+    return "\n        <div class=\"note col-lg-4\" id=\"".concat(index, "\">\n          ").concat(note, "\n        </div>\n      ");
   }).join("");
+  targetNotes();
+};
+
+var targetNotes = function targetNotes() {
+  var noteDiv = document.querySelectorAll(".note");
+
+  if (noteDiv !== null) {
+    noteDiv.forEach(function (node) {
+      node.addEventListener("click", function (event) {
+        var id = event.target.id;
+        _Storage__WEBPACK_IMPORTED_MODULE_0__["noteStorage"].emit("removeItem", id);
+      });
+    });
+  }
 };
 
 /***/ }),
@@ -294,7 +329,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var addNoteButton = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].addNoteButton,
-    addNoteInput = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].addNoteInput;
+    addNoteInput = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].addNoteInput,
+    noteDiv = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].noteDiv;
 addNoteButton.addEventListener("click", function () {
   var note = addNoteInput.value;
 
