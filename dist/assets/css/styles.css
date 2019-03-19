@@ -7041,7 +7041,7 @@ a.text-dark:hover, a.text-dark:focus {
   background-size: cover; }
 
 .sk-w100vw {
-  width: 100vw; }
+  width: 100%; }
 
 .sk-h60vw {
   height: 60vw; }
