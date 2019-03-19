@@ -5,6 +5,7 @@ export const $ = selector => document.querySelector(selector);
 export const domElements = {
   addNoteInput: $("#add-note"),
   addNoteButton: $("#add-note-button"),
+  clearButton: $("#clear"),
   noteContainer: $("#notes"),
   noteDiv: null
 };

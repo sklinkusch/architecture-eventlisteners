@@ -286,6 +286,7 @@ var $ = function $(selector) {
 var domElements = {
   addNoteInput: $("#add-note"),
   addNoteButton: $("#add-note-button"),
+  clearButton: $("#clear"),
   noteContainer: $("#notes"),
   noteDiv: null
 };
