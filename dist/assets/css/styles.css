@@ -7023,7 +7023,18 @@ a.text-dark:hover, a.text-dark:focus {
 .note {
   margin: 8px;
   padding: 8px;
-  background-color: #ffe96f; }
+  background-color: #ffe96f;
+  cursor: pointer; }
+  .note:hover {
+    background-color: blue;
+    color: white;
+    font-weight: bold; }
+
+.sk-center {
+  text-align: center; }
+  .sk-center button {
+    padding-left: 50px;
+    padding-right: 50px; }
 
 
 /*# sourceMappingURL=styles.css.map*/
