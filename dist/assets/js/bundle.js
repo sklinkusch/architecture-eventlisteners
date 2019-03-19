@@ -329,6 +329,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var addNoteButton = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].addNoteButton,
     addNoteInput = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].addNoteInput,
+    clearButton = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].clearButton,
     noteDiv = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].noteDiv;
 addNoteButton.addEventListener("click", function () {
   var note = addNoteInput.value;
@@ -337,6 +338,9 @@ addNoteButton.addEventListener("click", function () {
     _Storage__WEBPACK_IMPORTED_MODULE_1__["noteStorage"].emit("addItem", note);
     addNoteInput.value = "";
   }
+});
+clearButton.addEventListener("click", function () {
+  _Storage__WEBPACK_IMPORTED_MODULE_1__["noteStorage"].emit("clear");
 });
 
 /***/ }),
