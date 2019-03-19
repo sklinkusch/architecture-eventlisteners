@@ -214,11 +214,8 @@ function (_MyNiceEvents) {
     key: "removeDataSet",
     value: function removeDataSet(dataParameter) {
       // remove from this.data
-      var data = this.data;
-      this.data = data.filter(function (note, index) {
-        return index != dataParameter;
-      }); // alternative: this.data.splice(Number(dataParameter), 1);
-      // console.log(`OK remove key -> ${dataParameter}`);
+      // this.data = this.data.filter((note, index) => index != dataParameter);
+      this.data.splice(dataParameter, 1); // console.log(`OK remove key -> ${dataParameter}`);
       // update ui
 
       this.emit("updated", this.data); // save
@@ -289,20 +286,20 @@ var $ = function $(selector) {
 var domElements = {
   addNoteInput: $("#add-note"),
   addNoteButton: $("#add-note-button"),
-  noteContainer: $("#notes")
+  noteContainer: $("#notes"),
+  noteDiv: null
 };
 var renderNotes = function renderNotes(notes) {
   domElements.noteContainer.innerHTML = notes.map(function (note, index) {
     return "\n        <div class=\"note col-lg-4\" id=\"".concat(index, "\">\n          ").concat(note, "\n        </div>\n      ");
   }).join("");
+  domElements.noteDiv = document.querySelectorAll(".note");
   targetNotes();
 };
 
 var targetNotes = function targetNotes() {
-  var noteDiv = document.querySelectorAll(".note");
-
-  if (noteDiv !== null) {
-    noteDiv.forEach(function (node) {
+  if (domElements.noteDiv !== null) {
+    domElements.noteDiv.forEach(function (node) {
       node.addEventListener("click", function (event) {
         var id = event.target.id;
         _Storage__WEBPACK_IMPORTED_MODULE_0__["noteStorage"].emit("removeItem", id);

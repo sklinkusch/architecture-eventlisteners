@@ -5,7 +5,8 @@ export const $ = selector => document.querySelector(selector);
 export const domElements = {
   addNoteInput: $("#add-note"),
   addNoteButton: $("#add-note-button"),
-  noteContainer: $("#notes")
+  noteContainer: $("#notes"),
+  noteDiv: null
 };
 
 export const renderNotes = notes => {
@@ -18,13 +19,13 @@ export const renderNotes = notes => {
       `;
     })
     .join("");
+  domElements.noteDiv = document.querySelectorAll(".note");
   targetNotes();
 };
 
 const targetNotes = () => {
-  const noteDiv = document.querySelectorAll(".note");
-  if (noteDiv !== null) {
-    noteDiv.forEach(node => {
+  if (domElements.noteDiv !== null) {
+    domElements.noteDiv.forEach(node => {
       node.addEventListener("click", event => {
         const id = event.target.id;
         noteStorage.emit("removeItem", id);
