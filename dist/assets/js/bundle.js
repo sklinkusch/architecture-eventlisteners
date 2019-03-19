@@ -217,7 +217,8 @@ function (_MyNiceEvents) {
       var data = this.data;
       this.data = data.filter(function (note, index) {
         return index != dataParameter;
-      }); // console.log(`OK remove key -> ${dataParameter}`);
+      }); // alternative: this.data.splice(Number(dataParameter), 1);
+      // console.log(`OK remove key -> ${dataParameter}`);
       // update ui
 
       this.emit("updated", this.data); // save

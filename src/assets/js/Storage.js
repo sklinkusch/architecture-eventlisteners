@@ -25,6 +25,7 @@ export default class Storage extends MyNiceEvents {
     // remove from this.data
     const data = this.data;
     this.data = data.filter((note, index) => index != dataParameter);
+    // alternative: this.data.splice(Number(dataParameter), 1);
     // console.log(`OK remove key -> ${dataParameter}`);
     // update ui
     this.emit("updated", this.data);
