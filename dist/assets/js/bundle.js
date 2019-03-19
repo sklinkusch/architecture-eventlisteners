@@ -211,6 +211,13 @@ function (_MyNiceEvents) {
       this.save();
     }
   }, {
+    key: "clear",
+    value: function clear() {
+      this.data = [];
+      this.emit("updated", this.data);
+      this.save();
+    }
+  }, {
     key: "removeDataSet",
     value: function removeDataSet(dataParameter) {
       // remove from this.data
@@ -260,6 +267,9 @@ noteStorage.on("updated", function (notes) {
 });
 noteStorage.on("removeItem", function (note) {
   noteStorage.removeDataSet(note);
+});
+noteStorage.on("clear", function () {
+  noteStorage.clear();
 });
 noteStorage.initFinished();
 
