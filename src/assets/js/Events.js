@@ -4,12 +4,12 @@ export default class Event {
   constructor() {
     this.events = {};
   }
-
+  // bind functions to an event
   on(eventName, fn) {
     this.events[eventName] = this.events[eventName] || [];
     this.events[eventName].push(fn);
   }
-
+  // remove functions from an event
   off(eventName, fn) {
     if (this.events[eventName]) {
       for (var i = 0; i < this.events[eventName].length; i++) {
@@ -20,6 +20,7 @@ export default class Event {
       }
     }
   }
+  // trigger event to run the functions
   emit(eventName, data) {
     if (this.events[eventName]) {
       this.events[eventName].forEach(function(fn) {

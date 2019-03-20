@@ -110,14 +110,16 @@ function () {
     _classCallCheck(this, Event);
 
     this.events = {};
-  }
+  } // bind functions to an event
+
 
   _createClass(Event, [{
     key: "on",
     value: function on(eventName, fn) {
       this.events[eventName] = this.events[eventName] || [];
       this.events[eventName].push(fn);
-    }
+    } // remove functions from an event
+
   }, {
     key: "off",
     value: function off(eventName, fn) {
@@ -129,7 +131,8 @@ function () {
           }
         }
       }
-    }
+    } // trigger event to run the functions
+
   }, {
     key: "emit",
     value: function emit(eventName, data) {
