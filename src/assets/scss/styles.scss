@@ -1,5 +1,7 @@
+/* import external files from node_modules */
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+/* styling for individual notes */
 .note {
   margin: 8px;
   padding: 8px;
@@ -11,6 +13,7 @@
     font-weight: bold;
   }
 }
+/* Centering classes */
 .sk-center {
   text-align: center;
   button {
@@ -18,16 +21,22 @@
     padding-right: 50px;
   }
 }
+.m0auto {
+  margin: 0 auto;
+}
+/* Container for title image */
 .sk-img-container {
   background-image: url("../img/fikri-rasyid-786614-unsplash.jpg");
   background-size: cover;
 }
+/* Width and height of title image */
 .sk-w100vw {
   width: 100%;
 }
 .sk-h60vw {
   height: 60vw;
 }
+/* bottom bar/footer */
 .sk-bottom {
   margin-top: 60px;
   display: flex;
@@ -39,7 +48,4 @@
 }
 .sk-bottom span:hover {
   color: yellow;
-}
-.m0auto {
-  margin: 0 auto;
 }
