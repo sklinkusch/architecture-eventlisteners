@@ -334,13 +334,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Storage */ "./src/assets/js/Storage.js");
 /* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper */ "./src/assets/js/helper.js");
+// import scss file
+ // import objects from other js files
 
 
+ // deconstruct domElements to access properties directly
 
 var addNoteButton = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].addNoteButton,
     addNoteInput = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].addNoteInput,
     clearButton = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].clearButton,
-    noteDiv = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].noteDiv;
+    noteDiv = _helper__WEBPACK_IMPORTED_MODULE_2__["domElements"].noteDiv; // add an eventListener on the add button
+
 addNoteButton.addEventListener("click", function () {
   var note = addNoteInput.value;
 
@@ -348,7 +352,8 @@ addNoteButton.addEventListener("click", function () {
     _Storage__WEBPACK_IMPORTED_MODULE_1__["noteStorage"].emit("addItem", note);
     addNoteInput.value = "";
   }
-});
+}); // add an eventListener on the clear button
+
 clearButton.addEventListener("click", function () {
   _Storage__WEBPACK_IMPORTED_MODULE_1__["noteStorage"].emit("clear");
 });
