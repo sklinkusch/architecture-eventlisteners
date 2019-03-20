@@ -238,33 +238,17 @@ function (_MyNiceEvents) {
       this.emit("updated", this.data); // save
 
       this.save();
-    }
+    } // function that modifies the status
+
   }, {
     key: "modifyStatus",
     value: function modifyStatus(index) {
+      // get old status
       var oldStatus = this.data[index].status;
-
-      switch (oldStatus) {
-        case "in the queue":
-          this.data[index].status = "pending";
-          break;
-
-        case "pending":
-          this.data[index].status = "done";
-          break;
-
-        case "done":
-          this.data[index].status = "to be deleted";
-          break;
-
-        case "to be deleted":
-          this.data[index].status = "in the queue";
-          break;
-
-        default:
-          this.data[index].status = "in the queue";
-      }
-
+      var statuses = ["in the queue", "pending", "done", "to be deleted"];
+      var oldIndex = statuses.indexOf(oldStatus) || "";
+      var newIndex = (oldIndex + 1) % statuses.length;
+      this.data[index].status = statuses[newIndex] || "in the queue";
       this.emit("updated", this.data);
       this.save();
     } // method to save data to localStorage
