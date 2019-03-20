@@ -161,7 +161,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noteStorage", function() { return noteStorage; });
 /* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Events */ "./src/assets/js/Events.js");
 /* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper */ "./src/assets/js/helper.js");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index */ "./src/assets/js/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -183,9 +182,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 // LocalStorage Wrapper
 // save Array -> transform: String -> localStorage.setItem
 // get Array -> localStorage.getItem -> transform: Array
+// import default class from Events.js
+ // import object from helper function
 
-
-
+ // definition of main class Storage
 
 var Storage =
 /*#__PURE__*/
@@ -201,7 +201,8 @@ function (_MyNiceEvents) {
     _this.key = localStorageKey;
     _this.data = _this.get();
     return _this;
-  }
+  } // wrapper method to add an item
+
 
   _createClass(Storage, [{
     key: "addDataSet",
@@ -209,14 +210,16 @@ function (_MyNiceEvents) {
       this.data.push(dataParameter);
       this.emit("updated", this.data);
       this.save();
-    }
+    } // wrapper method to clear the list
+
   }, {
     key: "clear",
     value: function clear() {
       this.data = [];
       this.emit("updated", this.data);
       this.save();
-    }
+    } // wrapper method to remove a single item
+
   }, {
     key: "removeDataSet",
     value: function removeDataSet(dataParameter) {
@@ -228,7 +231,8 @@ function (_MyNiceEvents) {
       this.emit("updated", this.data); // save
 
       this.save();
-    }
+    } // method to save data to localStorage
+
   }, {
     key: "save",
     value: function save() {
@@ -238,7 +242,8 @@ function (_MyNiceEvents) {
       var stringified = JSON.stringify(data); // save to localStorage
 
       window.localStorage.setItem(this.key, stringified);
-    }
+    } // method to get data from localStorage
+
   }, {
     key: "get",
     value: function get() {
@@ -246,7 +251,8 @@ function (_MyNiceEvents) {
       this.data = JSON.parse(localStorageValue) || [];
       this.emit("updated", this.data);
       return this.data;
-    }
+    } // update the ui when loading has finished
+
   }, {
     key: "initFinished",
     value: function initFinished() {
@@ -255,10 +261,12 @@ function (_MyNiceEvents) {
   }]);
 
   return Storage;
-}(_Events__WEBPACK_IMPORTED_MODULE_0__["default"]);
+}(_Events__WEBPACK_IMPORTED_MODULE_0__["default"]); // create object as instance of this class
 
 
-var noteStorage = new Storage("myAwesomeNote");
+
+var noteStorage = new Storage("myAwesomeNote"); // bind functions to event signals
+
 noteStorage.on("addItem", function (note) {
   noteStorage.addDataSet(note);
 });
@@ -270,7 +278,8 @@ noteStorage.on("removeItem", function (note) {
 });
 noteStorage.on("clear", function () {
   noteStorage.clear();
-});
+}); // update the ui
+
 noteStorage.initFinished();
 
 /***/ }),
