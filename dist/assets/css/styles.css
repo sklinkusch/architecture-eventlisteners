@@ -7024,7 +7024,7 @@ a.text-dark:hover, a.text-dark:focus {
   margin: 8px;
   padding: 8px;
   background-color: yellow;
-  cursor: pointer; }
+  cursor: url(../img/font-awesome_4-7-0_times_25_0_007dff_none.png), pointer; }
   .note:hover {
     background-color: blue;
     color: white;
