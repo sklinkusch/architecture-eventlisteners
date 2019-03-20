@@ -340,9 +340,9 @@ var renderNotes = function renderNotes(notes) {
     var name = note.name,
         status = note.status;
     var color = determineColor(status);
-    return "\n        <div class=\"note col-lg-5\" style=\"background-color: ".concat(color, "\">\n          <p>").concat(name, "</p>\n          <div class=\"btn-container\">\n          <button class=\"removeNote\" id=\"").concat(index, "\"><span class=\"fas fa-times\">&nbsp;</span></button>\n          </div>\n        </div>\n      ");
+    return "\n        <div class=\"note col-lg-5\" style=\"background-color: ".concat(color, "\" title=\"click to change status\">\n        <div class=\"note-container\">\n          <p>").concat(name, "</p>\n          </div>\n          <div class=\"btn-container\">\n          <button class=\"removeNote\" id=\"").concat(index, "\" title=\"click to remove\"><span class=\"fas fa-times\">&nbsp;</span></button>\n          </div>\n        </div>\n      ");
   }).join("");
-  domElements.noteDiv = document.querySelectorAll(".note");
+  domElements.noteDiv = document.querySelectorAll(".note-container");
   domElements.removeBtn = document.querySelectorAll(".removeNote");
   targetNotes();
 }; // function to add event listeners on each element to remove it
@@ -359,7 +359,7 @@ var targetNotes = function targetNotes() {
   if (domElements.removeBtn !== null) {
     domElements.removeBtn.forEach(function (button) {
       button.addEventListener("click", function (event) {
-        var id = event.target.id;
+        var id = button.id;
         _Storage__WEBPACK_IMPORTED_MODULE_0__["noteStorage"].emit("removeItem", id);
       });
     });
