@@ -210,7 +210,11 @@ function (_MyNiceEvents) {
   _createClass(Storage, [{
     key: "addDataSet",
     value: function addDataSet(dataParameter) {
-      this.data.push(dataParameter);
+      var myObj = {
+        name: dataParameter,
+        status: "pending"
+      };
+      this.data.push(myObj);
       this.emit("updated", this.data);
       this.save();
     } // wrapper method to clear the list
@@ -316,9 +320,9 @@ var domElements = {
 
 var renderNotes = function renderNotes(notes) {
   domElements.noteContainer.innerHTML = notes.map(function (note, index) {
-    return "\n        <div class=\"note col-lg-5\">\n          <p>".concat(note, "</p>\n          <div class=\"btn-container\">\n          <button class=\"removeNote\" id=\"").concat(index, "\"><span class=\"fas fa-times\">&nbsp;</span></button>\n          </div>\n        </div>\n      ");
+    return "\n        <div class=\"note col-lg-5\">\n          <p>".concat(note.name, "</p>\n          <div class=\"btn-container\">\n          <button class=\"removeNote\" id=\"").concat(index, "\"><span class=\"fas fa-times\">&nbsp;</span></button>\n          </div>\n        </div>\n      ");
   }).join("");
-  domElements.noteDiv = document.querySelectorAll(".note");
+  domElements.noteDiv = document.querySelectorAll(".removeNote");
   targetNotes();
 }; // function to add event listeners on each element to remove it
 

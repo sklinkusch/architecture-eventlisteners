@@ -15,7 +15,7 @@ export const renderNotes = notes => {
     .map((note, index) => {
       return `
         <div class="note col-lg-5">
-          <p>${note}</p>
+          <p>${note.name}</p>
           <div class="btn-container">
           <button class="removeNote" id="${index}"><span class="fas fa-times">&nbsp;</span></button>
           </div>
@@ -23,7 +23,7 @@ export const renderNotes = notes => {
       `;
     })
     .join("");
-  domElements.noteDiv = document.querySelectorAll(".note");
+  domElements.noteDiv = document.querySelectorAll(".removeNote");
   targetNotes();
 };
 // function to add event listeners on each element to remove it
