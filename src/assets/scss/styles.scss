@@ -16,9 +16,14 @@
   &:hover {
     font-weight: bold;
   }
+  note-container {
+    flex: 1 0 85%;
+  }
+  btn-container {
+    flex: 0 1 15%;
+  }
   button {
     background: transparent;
-    border: none;
   }
 }
 /* Centering classes */
