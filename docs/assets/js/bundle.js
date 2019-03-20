@@ -316,7 +316,7 @@ var domElements = {
 
 var renderNotes = function renderNotes(notes) {
   domElements.noteContainer.innerHTML = notes.map(function (note, index) {
-    return "\n        <div class=\"note col-lg-5\" id=\"".concat(index, "\" title=\"click to remove\">\n          ").concat(note, "\n        </div>\n      ");
+    return "\n        <div class=\"note col-lg-5\">\n          <p>".concat(note, "</p>\n          <div class=\"btn-container\">\n          <button class=\"removeNote\" id=\"").concat(index, "\"><span class=\"fas fa-times\">&nbsp;</span></button>\n          </div>\n        </div>\n      ");
   }).join("");
   domElements.noteDiv = document.querySelectorAll(".note");
   targetNotes();
