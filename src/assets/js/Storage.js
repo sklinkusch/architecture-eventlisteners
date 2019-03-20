@@ -14,7 +14,7 @@ export default class Storage extends MyNiceEvents {
   }
   // wrapper method to add an item
   addDataSet(dataParameter) {
-    const myObj = { name: dataParameter, status: "pending" };
+    const myObj = { name: dataParameter, status: "in the queue" };
     this.data.push(myObj);
     this.emit("updated", this.data);
     this.save();

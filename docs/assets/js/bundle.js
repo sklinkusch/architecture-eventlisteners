@@ -212,7 +212,7 @@ function (_MyNiceEvents) {
     value: function addDataSet(dataParameter) {
       var myObj = {
         name: dataParameter,
-        status: "pending"
+        status: "in the queue"
       };
       this.data.push(myObj);
       this.emit("updated", this.data);
