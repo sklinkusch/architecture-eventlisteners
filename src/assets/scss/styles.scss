@@ -1,6 +1,11 @@
 /* import external files from node_modules */
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+/* styling for note container */
+#notes {
+  display: flex;
+  justify-content: center;
+}
 /* styling for individual notes */
 .note {
   margin: 8px;

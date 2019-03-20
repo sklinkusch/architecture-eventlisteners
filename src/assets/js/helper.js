@@ -14,7 +14,7 @@ export const renderNotes = notes => {
   domElements.noteContainer.innerHTML = notes
     .map((note, index) => {
       return `
-        <div class="note col-lg-3" id="${index}" title="click to remove">
+        <div class="note col-lg-5" id="${index}" title="click to remove">
           ${note}
         </div>
       `;
