@@ -291,34 +291,36 @@ noteStorage.initFinished();
 /*!*********************************!*\
   !*** ./src/assets/js/helper.js ***!
   \*********************************/
-/*! exports provided: $, domElements, renderNotes */
+/*! exports provided: domElements, renderNotes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$", function() { return $; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "domElements", function() { return domElements; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderNotes", function() { return renderNotes; });
 /* harmony import */ var _Storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Storage */ "./src/assets/js/Storage.js");
- // Helper
+// import object from Storage.js
+ // function and object to access DOM elements easier
 
 var $ = function $(selector) {
   return document.querySelector(selector);
 };
+
 var domElements = {
   addNoteInput: $("#add-note"),
   addNoteButton: $("#add-note-button"),
   clearButton: $("#clear"),
   noteContainer: $("#notes"),
   noteDiv: null
-};
+}; // function to write notes to the ui
+
 var renderNotes = function renderNotes(notes) {
   domElements.noteContainer.innerHTML = notes.map(function (note, index) {
     return "\n        <div class=\"note col-lg-3\" id=\"".concat(index, "\" title=\"click to remove\">\n          ").concat(note, "\n        </div>\n      ");
   }).join("");
   domElements.noteDiv = document.querySelectorAll(".note");
   targetNotes();
-};
+}; // function to add event listeners on each element to remove it
 
 var targetNotes = function targetNotes() {
   if (domElements.noteDiv !== null) {
