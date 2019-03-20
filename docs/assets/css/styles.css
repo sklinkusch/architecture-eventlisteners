@@ -7039,6 +7039,7 @@ a.text-dark:hover, a.text-dark:focus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  background-color: yellow;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between; }
