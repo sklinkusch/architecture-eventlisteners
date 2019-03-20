@@ -7023,7 +7023,7 @@ a.text-dark:hover, a.text-dark:focus {
 .note {
   margin: 8px;
   padding: 8px;
-  background-color: #ffe96f;
+  background-color: yellow;
   cursor: pointer; }
   .note:hover {
     background-color: blue;
