@@ -36,6 +36,27 @@ export default class Storage extends MyNiceEvents {
     // save
     this.save();
   }
+  modifyStatus(index) {
+    const oldStatus = this.data[index].status;
+    switch (oldStatus) {
+      case "in the queue":
+        this.data[index].status = "pending";
+        break;
+      case "pending":
+        this.data[index].status = "done";
+        break;
+      case "done":
+        this.data[index].status = "to be deleted";
+        break;
+      case "to be deleted":
+        this.data[index].status = "in the queue";
+        break;
+      default:
+        this.data[index].status = "in the queue";
+    }
+    this.emit("updated", this.data);
+    this.save();
+  }
   // method to save data to localStorage
   save() {
     // have access to current data
@@ -74,6 +95,10 @@ noteStorage.on("removeItem", note => {
 
 noteStorage.on("clear", () => {
   noteStorage.clear();
+});
+
+noteStorage.on("toggleStatus", index => {
+  noteStorage.modifyStatus(index);
 });
 // update the ui
 noteStorage.initFinished();

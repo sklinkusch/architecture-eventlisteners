@@ -12,11 +12,8 @@
   padding: 8px;
   /*cursor: url(../img/font-awesome_4-7-0_times_25_0_007dff_none.png), pointer;*/
   display: flex;
-  background-color: yellow;
   justify-content: space-between;
   &:hover {
-    background-color: blue;
-    color: white;
     font-weight: bold;
   }
   button {

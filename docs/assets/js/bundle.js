@@ -238,6 +238,35 @@ function (_MyNiceEvents) {
       this.emit("updated", this.data); // save
 
       this.save();
+    }
+  }, {
+    key: "modifyStatus",
+    value: function modifyStatus(index) {
+      var oldStatus = this.data[index].status;
+
+      switch (oldStatus) {
+        case "in the queue":
+          this.data[index].status = "pending";
+          break;
+
+        case "pending":
+          this.data[index].status = "done";
+          break;
+
+        case "done":
+          this.data[index].status = "to be deleted";
+          break;
+
+        case "to be deleted":
+          this.data[index].status = "in the queue";
+          break;
+
+        default:
+          this.data[index].status = "in the queue";
+      }
+
+      this.emit("updated", this.data);
+      this.save();
     } // method to save data to localStorage
 
   }, {
@@ -285,6 +314,9 @@ noteStorage.on("removeItem", function (note) {
 });
 noteStorage.on("clear", function () {
   noteStorage.clear();
+});
+noteStorage.on("toggleStatus", function (index) {
+  noteStorage.modifyStatus(index);
 }); // update the ui
 
 noteStorage.initFinished();
@@ -315,27 +347,56 @@ var domElements = {
   addNoteButton: $("#add-note-button"),
   clearButton: $("#clear"),
   noteContainer: $("#notes"),
-  noteDiv: null
+  noteDiv: null,
+  removeBtn: null
 }; // function to write notes to the ui
 
 var renderNotes = function renderNotes(notes) {
   domElements.noteContainer.innerHTML = notes.map(function (note, index) {
-    return "\n        <div class=\"note col-lg-5\">\n          <p>".concat(note.name, "</p>\n          <div class=\"btn-container\">\n          <button class=\"removeNote\" id=\"").concat(index, "\"><span class=\"fas fa-times\">&nbsp;</span></button>\n          </div>\n        </div>\n      ");
+    var name = note.name,
+        status = note.status;
+    var color = determineColor(status);
+    return "\n        <div class=\"note col-lg-5\" style=\"background-color: ".concat(color, "\">\n          <p>").concat(name, "</p>\n          <div class=\"btn-container\">\n          <button class=\"removeNote\" id=\"").concat(index, "\"><span class=\"fas fa-times\">&nbsp;</span></button>\n          </div>\n        </div>\n      ");
   }).join("");
-  domElements.noteDiv = document.querySelectorAll(".removeNote");
+  domElements.noteDiv = document.querySelectorAll(".note");
+  domElements.removeBtn = document.querySelectorAll(".removeNote");
   targetNotes();
 }; // function to add event listeners on each element to remove it
 
 var targetNotes = function targetNotes() {
   if (domElements.noteDiv !== null) {
-    domElements.noteDiv.forEach(function (node) {
-      node.addEventListener("click", function (event) {
+    domElements.noteDiv.forEach(function (note, index) {
+      note.addEventListener("click", function (event) {
+        _Storage__WEBPACK_IMPORTED_MODULE_0__["noteStorage"].emit("toggleStatus", index);
+      });
+    });
+  }
+
+  if (domElements.removeBtn !== null) {
+    domElements.removeBtn.forEach(function (button) {
+      button.addEventListener("click", function (event) {
         var id = event.target.id;
         _Storage__WEBPACK_IMPORTED_MODULE_0__["noteStorage"].emit("removeItem", id);
       });
     });
   }
 };
+
+function determineColor(status) {
+  switch (status) {
+    case "in the queue":
+      return "DodgerBlue";
+
+    case "pending":
+      return "yellow";
+
+    case "done":
+      return "LimeGreen";
+
+    case "to be deleted":
+      return "LightCoral";
+  }
+}
 
 /***/ }),
 
