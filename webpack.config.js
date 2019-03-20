@@ -1,14 +1,14 @@
-const path = require("path")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
-const BrowserSyncPlugin = require("browser-sync-webpack-plugin")
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 module.exports = {
   entry: "./src/assets/js/index.js",
   output: {
-    path: path.resolve(__dirname, "dist/"),
+    path: path.resolve(__dirname, "docs/"),
     filename: "assets/js/bundle.js",
     publicPath: ""
   },
@@ -100,11 +100,11 @@ module.exports = {
     new BrowserSyncPlugin({
       host: "localhost",
       port: 3000,
-      server: { baseDir: ["dist"] }
+      server: { baseDir: ["docs"] }
     })
   ],
   performance: {
     maxEntrypointSize: 1000000,
     maxAssetSize: 1000000
   }
-}
+};
