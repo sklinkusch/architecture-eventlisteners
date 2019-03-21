@@ -340,7 +340,7 @@ var renderNotes = function renderNotes(notes) {
     var name = note.name,
         status = note.status;
     var color = determineColor(status);
-    return "\n        <div class=\"note col-lg-5\" style=\"background-color: ".concat(color, "\" title=\"click to change status\">\n        <div class=\"note-container\">\n          <p>").concat(name, "</p>\n          </div>\n          <div class=\"btn-container\">\n          <button class=\"removeNote\" id=\"").concat(index, "\" title=\"click to remove\"><span class=\"fas fa-times\">&nbsp;</span></button>\n          </div>\n        </div>\n      ");
+    return "\n        <div class=\"note col-lg-5\" style=\"background-color: ".concat(color, "\" title=\"").concat(status, " (click to change status)\">\n        <div class=\"note-container\">\n          <p>").concat(name, "</p>\n          </div>\n          <div class=\"btn-container\">\n          <button class=\"removeNote\" id=\"").concat(index, "\" title=\"click to remove\"><span class=\"fas fa-times\">&nbsp;</span></button>\n          </div>\n        </div>\n      ");
   }).join("");
   domElements.noteDiv = document.querySelectorAll(".note-container");
   domElements.removeBtn = document.querySelectorAll(".removeNote");

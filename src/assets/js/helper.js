@@ -17,7 +17,7 @@ export const renderNotes = notes => {
       const { name, status } = note;
       const color = determineColor(status);
       return `
-        <div class="note col-lg-5" style="background-color: ${color}" title="click to change status">
+        <div class="note col-lg-5" style="background-color: ${color}" title="${status} (click to change status)">
         <div class="note-container">
           <p>${name}</p>
           </div>
