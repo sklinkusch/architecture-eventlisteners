@@ -1,69 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
 
-  <body>
-    <!-- Header -->
-    <div class="navbar navbar-dark bg-dark">
-      <a href="#" class="navbar-brand">ToDo-List</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <!-- <title><%= htmlWebpackPlugin.options.title %></title> -->
+  <title>JavaScript ToDo list</title>
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="navbar navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">ToDo-List</a>
+  </div>
+  <!-- Title image -->
+  <div class="sk-img-container sk-w100vw sk-h60vw sk-flex-col sk-jc-end sk-ai-end"></div>
+  <!-- Jumbotron as a container for the input field and the buttons -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">ToDo-List</h1>
     </div>
-    <!-- Title image -->
-    <div
-      class="sk-img-container sk-w100vw sk-h60vw sk-flex-col sk-jc-end sk-ai-end"
-    ></div>
-    <!-- Jumbotron as a container for the input field and the buttons -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-3">ToDo-List</h1>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="form-group">
-            <label for="add-note">Add Note</label>
-            <input
-              type="text"
-              class="form-control"
-              id="add-note"
-              placeholder="Add your note here"
-            />
-          </div>
-          <div class="sk-center">
-            <button id="add-note-button" type="button" class="btn btn-success">
-              Add to list
-            </button>
-            <button class="btn btn-danger" id="clear" type="button">
-              Clear list
-            </button>
-          </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="add-note">Add Note</label>
+          <input type="text" class="form-control" id="add-note" placeholder="Add your note here" />
+        </div>
+        <div class="sk-center">
+          <button id="add-note-button" type="button" class="btn btn-success">
+            Add to list
+          </button>
+          <button class="btn btn-danger" id="clear" type="button">
+            Clear list
+          </button>
         </div>
       </div>
     </div>
-    <!-- Container for notes -->
-    <div class="container m0auto">
-      <div id="notes" class="row"></div>
+  </div>
+  <!-- Container for notes -->
+  <div class="container m0auto">
+    <div id="notes" class="row"></div>
+  </div>
+  <!-- Footer with copyright and links -->
+  <div class="navbar navbar-dark bg-dark sk-bottom">
+    <p>Created by Stefan Klinkusch @ DCI, 2019</p>
+    <div class="m0auto sk-center">
+      <a href="https://github.com/sklinkusch" target="_blank">
+        <span class="fab fa-github">&nbsp;</span></a>
+      <a href="www.linkedin.com/in/stefan-klinkusch-b0595216a" target="_blank">
+        <span class="fab fa-linkedin">&nbsp;</span></a>
+      <a href="mailto:stefan.klinkusch@googlemail.com">
+        <span class="fas fa-envelope">&nbsp;</span></a>
     </div>
-    <!-- Footer with copyright and links -->
-    <div class="navbar navbar-dark bg-dark sk-bottom">
-      <p>Created by Stefan Klinkusch @ DCI, 2019</p>
-      <div class="m0auto sk-center">
-        <a href="https://github.com/sklinkusch" target="_blank">
-          <span class="fab fa-github">&nbsp;</span></a
-        >
-        <a
-          href="www.linkedin.com/in/stefan-klinkusch-b0595216a"
-          target="_blank"
-        >
-          <span class="fab fa-linkedin">&nbsp;</span></a
-        >
-        <a href="mailto:stefan.klinkusch@googlemail.com">
-          <span class="fas fa-envelope">&nbsp;</span></a
-        >
-      </div>
-    </div>
-  </body>
+  </div>
+</body>
+
 </html>
